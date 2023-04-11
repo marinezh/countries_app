@@ -1,5 +1,9 @@
-body {
+html {
   margin: 0;
+  padding: 0;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -10,10 +14,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-.home img {
-  object-fit: scale-down;
 }
 
 .app_wrap {
@@ -29,4 +29,16 @@ code {
   align-items: center;
   margin-top: 5rem;
   gap: 1.5rem;
+}
+
+video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.home_content {
+  color: white;
+  position: absolute;
+  top: 2rem;
 }
