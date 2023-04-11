@@ -24,9 +24,10 @@ const App = () => {
           {/* Unprotected routes should be at the top */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/countries" element={<Countries />} />
+
           {/* Protected routes should be inside ProtectRoute */}
           <Route element={<ProtectedRoute user={user} />}>
+            <Route path="/countries" element={<Countries />} />
             <Route path="/favourites" element={<Favourites />} />
             <Route path="/countries/:single" element={<CountriesSingle />} />
           </Route>

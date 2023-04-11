@@ -8,9 +8,8 @@ import Row from "react-bootstrap/Row";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../features/countriesSlice";
-import { addFavourites } from "../features/favouritesSlice";
+import { addFavourites, removeFavourite } from "../features/favouritesSlice";
 import { useEffect } from "react";
-import classes from "./Countries.module.css";
 
 import Spinner from "react-bootstrap/Spinner";
 // import countries from "../services/countries";
@@ -20,8 +19,10 @@ const Countries = () => {
   const countriesList = useSelector((state) => state.countries.countries);
   const loading = useSelector((state) => state.countries.isLoading);
   const [search, setSearch] = useState("");
+  let favouritesList = useSelector((state) => state.favourites.favourites);
 
   console.log("Search: ", search);
+
   console.log("countriesList: ", countriesList);
   console.log("loading", loading);
 
@@ -29,14 +30,19 @@ const Countries = () => {
     dispatch(initializeCountries());
   }, [dispatch]);
 
-  // We will be replacing this with data from our API.
-  // const country = {
-  //   name: {
-  //     common: "Example Country",
-  //   },
-  // };
-
-  if (loading) return <Spinner animation="border" />;
+  if (loading)
+    return (
+      <Col className="text-center m-5">
+        <Spinner
+          animation="border"
+          role="status"
+          className="center"
+          variant="info"
+        >
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </Col>
+    );
   else
     return (
       <Container fluid>
@@ -64,10 +70,23 @@ const Countries = () => {
             .map((country) => (
               <Col className="mt-5" key={country.name.official}>
                 <Card className="h-100">
-                  <i
-                    className="bi bi-heart text-danger m-1 p-1"
-                    onClick={() => dispatch(addFavourites(country.name.common))}
-                  ></i>
+                  <div>
+                    {favouritesList.includes(country.name.common) ? (
+                      <i
+                        className="bi bi-heart-fill text-danger m-1 p-1"
+                        onClick={() =>
+                          dispatch(removeFavourite(country.name.common))
+                        }
+                      ></i>
+                    ) : (
+                      <i
+                        className="bi bi-heart text-danger m-1 p-1"
+                        onClick={() =>
+                          dispatch(addFavourites(country.name.common))
+                        }
+                      ></i>
+                    )}
+                  </div>
 
                   <Card.Body className="d-flex flex-column">
                     <LinkContainer
@@ -76,8 +95,10 @@ const Countries = () => {
                     >
                       <div>
                         <Card.Img
-                          className={classes.flag_img}
-                          variant="top"
+                          style={{
+                            objectFit: "scale-down",
+                            height: "10rem",
+                          }}
                           src={country?.flags?.svg}
                         />
                         <Card.Title>{country.name.common}</Card.Title>

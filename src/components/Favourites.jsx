@@ -9,11 +9,15 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../features/countriesSlice";
 import { useEffect } from "react";
-import classes from "./Favourites.module.css";
+
 import { Button } from "react-bootstrap";
 
 import Spinner from "react-bootstrap/Spinner";
-import { clearFavourites, removeFavourites } from "../features/favouritesSlice";
+import {
+  clearFavourites,
+  removeFavourite,
+  getFavourites,
+} from "../features/favouritesSlice";
 // import countries from "../services/countries";
 
 const Favourites = () => {
@@ -21,17 +25,17 @@ const Favourites = () => {
 
   let countriesList = useSelector((state) => state.countries.countries);
   const loading = useSelector((state) => state.countries.isLoading);
-  const [search, setSearch] = useState("");
-  const [favouritesList, setFavouritesList] = useState([]);
 
-  console.log("Search: ", search);
-  console.log("countriesList: ", countriesList);
-  console.log("loading", loading);
+  let favouritesList = useSelector((state) => state.favourites.favourites);
+  const [search, setSearch] = useState("");
+  // console.log("Search: ", search);
+  // console.log("countriesList: ", countriesList);
+  // console.log("loading", loading);
 
   if (favouritesList !== null) {
     console.log("filling the list");
     countriesList = countriesList.filter((c) => {
-      console.log("hey", c.name.common, favouritesList.includes(c.name.common));
+      // console.log("hey", c.name.common, favouritesList.includes(c.name.common));
       return favouritesList.includes(c.name.common);
     });
   } else {
@@ -41,15 +45,14 @@ const Favourites = () => {
 
   useEffect(() => {
     dispatch(initializeCountries());
-    setFavouritesList(localStorage.getItem("Favourites"));
   }, [dispatch]);
 
-  // We will be replacing this with data from our API.
-  // const country = {
-  //   name: {
-  //     common: "Example Country",
-  //   },
-  // };
+  const removeHandler = (countryName) => {
+    const newList = favouritesList.filter(
+      (fav) => favouritesList.name.common !== countryName
+    );
+    dispatch(getFavourites(newList));
+  };
 
   if (loading) return <Spinner animation="border" />;
   else
@@ -67,18 +70,17 @@ const Favourites = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </Form>
+            <Button
+              onClick={() => {
+                dispatch(clearFavourites());
+              }}
+            >
+              {" "}
+              Clear favourites
+            </Button>
           </Col>
         </Row>
-        <Row xs={2} md={3} lg={4} className=" g-3">
-          <Button
-            onClick={() => {
-              dispatch(clearFavourites());
-            }}
-          >
-            {" "}
-            Clear favourites
-          </Button>
-        </Row>
+        <Row xs={2} md={3} lg={4} className=" g-3"></Row>
         <Row xs={2} md={3} lg={4} className=" g-3">
           {countriesList
             .filter((country) => {
@@ -87,25 +89,25 @@ const Favourites = () => {
                 .includes(search.toLowerCase());
             })
             .map((country) => (
-              <Col className="mt-5">
+              <Col className="mt-5" key={country.name.common}>
                 <Card className="h-100">
-                  <i
-                    className="bi bi-heart-fill text-danger m-1 p-1"
-                    onClick={() =>
-                      dispatch(removeFavourites(country.name.common))
-                    }
-                  ></i>
+                  <div className="d-flex justify-content-between">
+                    <i className="bi bi-heart-fill text-danger m-1 p-1"></i>
+                    <i
+                      className="bi bi-x-square  m-1 p-1"
+                      onClick={() => {
+                        dispatch(removeFavourite(country.name.common));
+                      }}
+                    ></i>
+                  </div>
+
                   <Card.Body className="d-flex flex-column">
                     <LinkContainer
                       to={`/countries/${country.name.common}`}
                       state={{ country: country }}
                     >
                       <div>
-                        <Card.Img
-                          className={classes.flag_img}
-                          variant="top"
-                          src={country?.flags?.svg}
-                        />
+                        <Card.Img variant="top" src={country?.flags?.svg} />
                         <Card.Title>{country.name.common}</Card.Title>
                         <Card.Subtitle className="mb-5 text-muted">
                           {country.name.official}

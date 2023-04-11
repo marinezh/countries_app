@@ -23,7 +23,7 @@ const Register = () => {
   }, [user, loading, navigate]);
 
   return (
-    <div>
+    <div className="register">
       <input
         type="text"
         value={name}
@@ -34,7 +34,7 @@ const Register = () => {
         type="text"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="email"
+        placeholder="Email"
       />
       <input
         type="password"
@@ -45,8 +45,7 @@ const Register = () => {
 
       <Button onClick={register}> Register</Button>
       <div>
-        Already have an acoount?
-        <Link to="/login">Login</Link>
+        Already have an acoount? <Link to="/login">Login</Link>
       </div>
     </div>
   );

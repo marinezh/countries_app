@@ -75,7 +75,7 @@ const CountriesSingle = () => {
       </Row>
       <Row>
         <Col>
-          <Button variant="light" onClick={() => navigate(-1)}>
+          <Button variant="dark" onClick={() => navigate(-1)}>
             Go back
           </Button>
         </Col>

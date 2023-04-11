@@ -9,6 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,12 +18,12 @@ const Login = () => {
   }, [user, loading, navigate]);
 
   return (
-    <div>
+    <div className="login">
       <input
         type="text"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="email"
+        placeholder="Email"
       />
       <input
         type="password"
@@ -35,8 +36,9 @@ const Login = () => {
         {" "}
         Login
       </Button>
-      <div>
+      <div style={{ margin: "0 auto" }}>
         Do not have an account?
+        <br />
         <Link to="/register">Register</Link>
       </div>
     </div>

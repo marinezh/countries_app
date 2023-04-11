@@ -6,10 +6,11 @@ import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../auth/firebase";
+import { Button } from "react-bootstrap";
 
 const Layout = () => {
   return (
-    <Container fluid>
+    <Container className="app_wrap" fluid>
       <Row>
         <Navbar bg="light" variant="light">
           <Container className="justify-content-end">
@@ -33,7 +34,7 @@ const Layout = () => {
                 </LinkContainer>
               </Nav>
             </Navbar.Collapse>
-            <button onClick={() => logout()}>Logout</button>
+            <Button onClick={() => logout()}>Logout</Button>
           </Container>
         </Navbar>
       </Row>
