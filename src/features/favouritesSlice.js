@@ -4,7 +4,7 @@ const favourites =
   localStorage.getItem("Favourites") !== null
     ? JSON.parse(localStorage.getItem("Favourites"))
     : [];
-console.log("sss", favourites);
+// console.log( favourites);
 
 const favouritesSlice = createSlice({
   name: "favourites",

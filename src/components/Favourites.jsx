@@ -13,11 +13,7 @@ import { useEffect } from "react";
 import { Button } from "react-bootstrap";
 
 import Spinner from "react-bootstrap/Spinner";
-import {
-  clearFavourites,
-  removeFavourite,
-  getFavourites,
-} from "../features/favouritesSlice";
+import { clearFavourites, removeFavourite } from "../features/favouritesSlice";
 // import countries from "../services/countries";
 
 const Favourites = () => {
@@ -33,9 +29,8 @@ const Favourites = () => {
   // console.log("loading", loading);
 
   if (favouritesList !== null) {
-    console.log("filling the list");
     countriesList = countriesList.filter((c) => {
-      // console.log("hey", c.name.common, favouritesList.includes(c.name.common));
+      // console.log(c.name.common, favouritesList.includes(c.name.common));
       return favouritesList.includes(c.name.common);
     });
   } else {

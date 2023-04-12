@@ -9,7 +9,6 @@ const CountriesSingle = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const country = location.state.country;
-  console.log(location);
   const [weather, setWeather] = useState("");
   const [error, setError] = useState(false);
 

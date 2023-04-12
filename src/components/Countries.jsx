@@ -21,10 +21,9 @@ const Countries = () => {
   const [search, setSearch] = useState("");
   let favouritesList = useSelector((state) => state.favourites.favourites);
 
-  console.log("Search: ", search);
-
-  console.log("countriesList: ", countriesList);
-  console.log("loading", loading);
+  // console.log("Search: ", search);
+  // console.log("countriesList: ", countriesList);
+  // console.log("loading", loading);
 
   useEffect(() => {
     dispatch(initializeCountries());
