@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, registerWithEmailAndPassword } from "../auth/firebase";
+import Form from "react-bootstrap/Form";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -24,29 +25,43 @@ const Register = () => {
 
   return (
     <div className="register">
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Full name"
-      />
-      <input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
+      <Form>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Full Name</Form.Label>
+          <Form.Control
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Full name"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+        </Form.Group>
 
-      <Button onClick={register}> Register</Button>
-      <div>
-        Already have an acoount? <Link to="/login">Login</Link>
-      </div>
+        <Button onClick={register}> Register</Button>
+        <div style={{ marginTop: "1rem" }}>
+          Already have an acoount? <Link to="/login">Login</Link>
+        </div>
+      </Form>
     </div>
   );
 };

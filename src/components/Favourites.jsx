@@ -47,13 +47,6 @@ const Favourites = () => {
     dispatch(initializeCountries());
   }, [dispatch]);
 
-  const removeHandler = (countryName) => {
-    const newList = favouritesList.filter(
-      (fav) => favouritesList.name.common !== countryName
-    );
-    dispatch(getFavourites(newList));
-  };
-
   if (loading) return <Spinner animation="border" />;
   else
     return (
@@ -107,8 +100,14 @@ const Favourites = () => {
                       state={{ country: country }}
                     >
                       <div>
-                        <Card.Img variant="top" src={country?.flags?.svg} />
-                        <Card.Title>{country.name.common}</Card.Title>
+                        <Card.Img
+                          variant="top"
+                          style={{ borderRadius: "5px" }}
+                          src={country?.flags?.svg}
+                        />
+                        <Card.Title style={{ marginTop: "1rem" }}>
+                          {country.name.common}
+                        </Card.Title>
                         <Card.Subtitle className="mb-5 text-muted">
                           {country.name.official}
                         </Card.Subtitle>

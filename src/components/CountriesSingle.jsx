@@ -50,11 +50,12 @@ const CountriesSingle = () => {
         <Col>
           {" "}
           <Image
+            className="country_img"
             thumbnail
             src={`https://source.unsplash.com/featured/1600x900${country.capital}`}
           ></Image>
         </Col>
-        <Col>
+        <Col className="single_description">
           <h2 className="display-4">{country.name.common}</h2>
           <h3>{country.capital}</h3>
           {!error && weather && (
@@ -70,12 +71,12 @@ const CountriesSingle = () => {
             </div>
           )}
           <h2>Borders:</h2>
-          <p>{country.borders?.map((e) => e + ", ")}</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Button variant="dark" onClick={() => navigate(-1)}>
+          <p>{country.borders?.map((e) => e + " ")}</p>
+          <Button
+            variant="dark"
+            className="goback"
+            onClick={() => navigate(-1)}
+          >
             Go back
           </Button>
         </Col>

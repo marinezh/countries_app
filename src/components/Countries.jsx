@@ -50,7 +50,7 @@ const Countries = () => {
           <Col className="mt-5 d-flex justify-content-center">
             <Form>
               <Form.Control
-                style={{ width: "18rem" }}
+                style={{ width: "15rem" }}
                 type="search"
                 className="me-2 "
                 placeholder="Search for countries"
@@ -98,10 +98,13 @@ const Countries = () => {
                           style={{
                             objectFit: "scale-down",
                             height: "10rem",
+                            borderRadius: "5px",
                           }}
                           src={country?.flags?.svg}
                         />
-                        <Card.Title>{country.name.common}</Card.Title>
+                        <Card.Title style={{ marginTop: "1rem" }}>
+                          {country.name.common}
+                        </Card.Title>
                         <Card.Subtitle className="mb-5 text-muted">
                           {country.name.official}
                         </Card.Subtitle>
